@@ -1,6 +1,6 @@
 <?php
-$servername = "localhost";
+$servername = "data4all.ddns.net";
 $username = "root";
-$password = "";
-$dbname = "centro_veterinario";
+$password = "6020FHHili@";
+$dbname = "db_perriatra";
 ?>
