@@ -99,112 +99,327 @@ form input[type="submit"] {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-}
+    }
 
 form input[type="submit"]:hover {
-    background-color: #037c79;
+background-color: #037c79;
 }
 
 /* Enlace inferior */
 form a {
-    display: block;
-    text-align: center;
-    margin-top: 15px;
-    text-decoration: none;
-    color: #046582;
-    font-weight: bold;
+display: block;
+text-align: center;
+margin-top: 15px;
+text-decoration: none;
+color: #046582;
+font-weight: bold;
 }
 
 form a:hover {
-    text-decoration: underline;
+text-decoration: underline;
 }
 
 /* Mensajes de error */
 .error {
-    color: #c62828;
-    font-size: 0.9em;
-    margin-top: 3px;
-    display: block;
+color: #c62828;
+font-size: 0.9em;
+margin-top: 3px;
+display: block;
 }
 /*index*/
 .admin-panel {
-    background-color: #ffffff;
-    border: 2px solid #b8e3e0;
-    border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    padding: 40px 50px;
-    max-width: 700px;
-    width: 100%;
-    text-align: center;
-}
-
-.admin-panel h1 {
-    color: #046582;
-    margin-bottom: 30px;
-}
-
-.admin-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
-}
-
-.admin-options a {
-    display: block;
-    background-color: #04b4ae;
-    color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.admin-options a:hover {
-    background-color: #037c79;
-}
-
-.welcome {
-    margin-bottom: 25px;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.logout {
-    margin-top: 30px;
-    display: inline-block;
-    color: #046582;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.logout:hover {
-    text-decoration: underline;
-}
-
-.tabla-vet {
-    width: 100%;
-    max-width: 1000px;
-    margin: 30px auto;
-    border-collapse: collapse;
-    background-color: #fff;
-    border: 2px solid #b8e3e0;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    overflow: hidden;
-}
-.tabla-vet th, .tabla-vet td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid #e0f2f1;
-}
-.tabla-vet th {
-    background-color: #04b4ae;
-    color: white;
-}
-.tabla-vet tr:nth-child(even) {
-    background-color: #f2fefe;
-}
+            background: linear-gradient(145deg, #ffffff, #f8fdff);
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(4, 101, 130, 0.15);
+            padding: 40px 50px;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, #04b4ae, #046582, #04b4ae);
+        }
+        
+        .admin-panel h1 {
+            color: #046582;
+            margin-bottom: 15px;
+            font-size: 2.2em;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .admin-panel h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #04b4ae, #046582);
+            border-radius: 2px;
+        }
+        
+        .welcome {
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: #333;
+            background-color: #e3f6f5;
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(4, 180, 174, 0.1);
+        }
+        
+        .welcome strong {
+            color: #04b4ae;
+        }
+        
+        .category-container {
+            margin-bottom: 35px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .admin-panel h2 {
+            color: #046582;
+            font-size: 1.4em;
+            margin: 0 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #b8e3e0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-panel h2::before {
+            content: "•";
+            color: #04b4ae;
+            font-size: 1.8em;
+            margin-right: 10px;
+            position: relative;
+            top: -3px;
+        }
+        
+        .admin-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 15px;
+        }
+        
+        .admin-options a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #04b4ae, #03a099);
+            color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(4, 180, 174, 0.2);
+        }
+        
+        .admin-options a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transition: height 0.3s ease;
+            z-index: -1;
+        }
+        
+        .admin-options a:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(4, 180, 174, 0.3);
+            letter-spacing: 0.5px;
+        }
+        
+        .admin-options a:hover::after {
+            height: 100%;
+        }
+        
+        /* Estilos específicos por categoría */
+        .consult h2::before {
+            color: #04b4ae;
+        }
+        
+        .consult .admin-options a {
+            background: linear-gradient(145deg, #04b4ae, #03a099);
+            box-shadow: 0 4px 10px rgba(4, 180, 174, 0.2);
+        }
+        
+        .consult .admin-options a:hover {
+            box-shadow: 0 8px 20px rgba(4, 180, 174, 0.3);
+        }
+        
+        .register h2::before {
+            color: #046582;
+        }
+        
+        .register .admin-options a {
+            background: linear-gradient(145deg, #046582, #035670);
+            box-shadow: 0 4px 10px rgba(4, 101, 130, 0.2);
+        }
+        
+        .register .admin-options a:hover {
+            box-shadow: 0 8px 20px rgba(4, 101, 130, 0.3);
+        }
+        
+        .help h2::before {
+            color: #ff6b6b;
+        }
+        
+        .help .admin-options a {
+            background: linear-gradient(145deg, #ff6b6b, #e6605f);
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.2);
+        }
+        
+        .help .admin-options a:hover {
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .logout {
+            margin-top: 20px;
+            display: inline-block;
+            color: #fff;
+            background: linear-gradient(145deg, #ff6b6b, #e6605f);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logout::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .logout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .logout:hover::before {
+            left: 100%;
+        }
+    .tabla-vet {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        background-color: #fff;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(4, 101, 130, 0.15);
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .tabla-vet::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 8px;
+        height: 100%;
+        background: linear-gradient(to bottom, #04b4ae, #046582);
+        border-radius: 16px 0 0 16px;
+    }
+    
+    .tabla-vet thead tr {
+        background: linear-gradient(145deg, #04b4ae, #03a099);
+    }
+    
+    .tabla-vet th {
+        padding: 18px 15px;
+        text-align: center;
+        color: rgb(0, 0, 0);
+        font-weight: 600;
+        font-size: 1.05em;
+        letter-spacing: 0.5px;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+        position: relative;
+    }
+    
+    .tabla-vet th:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 20%;
+        height: 60%;
+        width: 1px;
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    .tabla-vet td {
+        padding: 16px 15px;
+        text-align: center;
+        border-bottom: 1px solid #e0f2f1;
+        color: #333;
+        font-size: 0.95em;
+        transition: all 0.3s ease;
+    }
+    
+    .tabla-vet tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .tabla-vet tr:nth-child(even) {
+        background-color: #f7fdfd;
+    }
+    
+    .tabla-vet tbody tr {
+        transition: all 0.3s ease;
+    }
+    
+    .tabla-vet tbody tr:hover {
+        background-color: #e3f6f5;
+        transform: translateX(8px);
+        box-shadow: -5px 0 10px rgba(4, 180, 174, 0.1);
+    }
+    
+    .tabla-vet tbody tr:hover td {
+        color: #046582;
+    }
 .volver-btn {
     display: block;
     margin: 30px auto 10px;
@@ -274,3 +489,99 @@ form a:hover {
   outline: none;
 }
 
+/* Contenedor principal de filtros */
+.filtros-container {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  border-bottom: 2px solid #0056b3;
+}
+
+/* Organizador flexible de los elementos */
+.filtros-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+/* Cada elemento de filtro individual */
+.filtro-item {
+  flex: 1;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para las etiquetas */
+.filtro-item label {
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Estilo para los selectores */
+.filtro-item select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 15px;
+}
+
+/* Estilo del selector al enfocarlo */
+.filtro-item select:focus {
+  border-color: #0056b3;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.1);
+}
+/* Estilo para el botón */
+button.no,
+button.filtrar {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: normal;
+  text-shadow: 0 1px 0 white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+}
+
+/* Estilo del botón al pasar el cursor */
+button.no:hover,
+button.filtrar:hover {
+  background-image: linear-gradient(to bottom, #f8f8f8, #fff200);
+  border-color: #bbb;
+}
+
+/* Estilo del botón al hacer clic */
+button.no:active,
+button.filtrar:active {
+  background-image: none;
+  background-color: #e0e0e0;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .filtros-flex {
+    flex-direction: column;
+  }
+  
+  .filtro-item {
+    width: 100%;
+  }
+  
+  button.filtrar {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

@@ -1,3 +1,9 @@
+<?php session_start();
+if (!isset($_SESSION['nombre_u']) || $_SESSION['nombre_u'] !== 'admin') {
+    header("Location: ../../index.php?no-tienes-acceso-aqui");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

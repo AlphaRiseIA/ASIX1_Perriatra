@@ -2,7 +2,10 @@
 include '../conn/conexion.php'; // Asegúrate de que esta conexión usa estilo procedural
 include '../conn/conectarse.php'; // Si no es necesario, puedes eliminar uno
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['nombre'])) {
         header("Location: ../forms/form_especie.php?error=El-nombre-es-obligatorio");

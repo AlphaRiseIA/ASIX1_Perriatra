@@ -2,11 +2,28 @@
 include '../conn/conexion.php';
 include '../conn/conectarse.php';
 session_start();
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
+$filtrosNombre=isset($_GET['nombre'])? trim($_GET['nombre']):'';
+$filtrosDni=isset($_GET['dni']) ? trim($_GET['dni']) : '';
 
 // Consulta que une los veterinarios con sus usuarios
-$sql = "SELECT *
-        FROM propietario";
+$sql = "SELECT * FROM propietario";
+$where = [];
 
+if (!empty($filtrosNombre)) {
+    $filtrosNombre = mysqli_real_escape_string($conn, $filtrosNombre);
+    $where[] = "Nombre_p LIKE '$filtrosNombre'";
+}
+if (!empty($filtrosDni)) {
+    $filtrosDni = mysqli_real_escape_string($conn, $filtrosDni);
+    $where[] = "DNI_p LIKE '%$filtrosDni%'";
+}
+if ($where) {
+    $sql .= " WHERE " . implode(' AND ', $where);
+}
 $result = mysqli_query($conn, $sql);
 ?>
 
@@ -14,13 +31,41 @@ $result = mysqli_query($conn, $sql);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Plantilla de Veterinarios</title>
-    <link rel="stylesheet" href="../../css/styles.css"> <!-- Asegúrate de tener los estilos ahí -->  
+    <title>Listado de Propietarioss</title>
+    <link rel="stylesheet" href="../../css/styles.css"> 
+    <script src="../../script/script.js"></script>
 </head>
 <a href="../../index.php" class="btn-volver">⟵ Volver al inicio</a>
 <body>
     <h1>Listado de Propietarios</h1>
+
+    <div class="filtros-container">
+    <form method="GET" action="propietarios.php" class="filtros-flex">
+        <div class="filtro-item">
+        <label>Nombre:</label>
+        <select name="nombre">
+            <option value="">-- Todos --</option>
+            <?php
+            // Obtener nombres únicos de propietarios
+            $nombresQuery = "SELECT DISTINCT Nombre_p FROM propietario ORDER BY Nombre_p";
+            $nombresResult = mysqli_query($conn, $nombresQuery);
+            while ($nombreRow = mysqli_fetch_assoc($nombresResult)) {
+                $selected = ($filtrosNombre === $nombreRow['Nombre_p']) ? 'selected' : '';
+                echo "<option value=\"".htmlspecialchars($nombreRow['Nombre_p'])."\" $selected>".htmlspecialchars($nombreRow['Nombre_p'])."</option>";
+            }
+            ?>
+        </select></div>
+        <div class="filtro-item">
+        <label>DNI:</label>
+        <input type="text" name="dni" onblur="validarDNI()"value="<?php echo htmlspecialchars($filtrosDni); ?>"></div><br>
+        <button type="submit">Aplicar Filtros</button>
+        <button type="button" onclick="window.location.href='propietarios.php'">Limpiar</button>
+    </form>
+    </div>
+</div>
+
     <table class="tabla-vet">
+        <thead>
         <tr>
             <th>DNI</th>
             <th>Nombre completo</th>
@@ -29,6 +74,7 @@ $result = mysqli_query($conn, $sql);
             <th>Mail</th>
             <th>Acciones</th>
         </tr>
+        </thead>
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['DNI_p']); ?></td>
@@ -37,17 +83,17 @@ $result = mysqli_query($conn, $sql);
                 <td><?php echo htmlspecialchars($row['Telf_p']); ?></td>
                 <td><?php echo htmlspecialchars($row['Mail_p']); ?></td>
                 <td>
-                    <a href='./procesos/deletes/eliminar_veterinario.php?id={$row['id_u']}'>Eliminar</a><br>
-                    <a href='./procesos/forms/modificar_artista.php?id={$row['id_u']}&usr={$_SESSION['usuario']}&vet={$row['genero']}&nom={$artista['nombre']}'>Editar</a><br>
-                    <a href='./procesos/forms/agregar_contacto.php?id={$artista['id']}'>Agregar Contacto</a><br>
-                    <a href='./procesos/vistas/ver_contactos.php?id={$artista['id']}'>Ver Contactos</a>
+                    <?php 
+                        echo "<a href='../deletes/eliminar_propietarios.php?id={$row['DNI_p']}' class='delP' name='delP'>Eliminar</a>";    ?> <br>
+                    <?php    echo "<a href='../updates/updates_propietarios.php?id={$row['DNI_p']}' class='editP' name='editP'>Editar</a>"; 
+                    ?> 
                 </td>
             </tr>
         <?php endwhile; ?>
 
         <?php if (mysqli_num_rows($result) === 0): ?>
             <tr>
-                <td colspan="5">No hay veterinarios registrados.</td>
+                <td colspan="5">No hay propietarios registrados.</td>
             </tr>
         <?php endif; ?>
     </table>

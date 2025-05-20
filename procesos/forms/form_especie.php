@@ -3,6 +3,10 @@
 include '../conn/conexion.php';
 include '../conn/conectarse.php';
 session_start();
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,7 +23,7 @@ session_start();
     <form action="../insert/insert_especie.php" method="post" id="form">
         <label for="nombre_esp">Nombre de la especie:</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ingresa nombre de la especie" onblur="validaNombre();">
-        <span id="errorNombre" class="error"></span><br><br>
+        <span id="errorNombre" class="error"></span><br>
         <input type="submit" value="Registrar">
     </form>
 </div>

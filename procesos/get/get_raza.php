@@ -3,7 +3,10 @@
 include "../conn/conectarse.php";
 include "../conn/conexion.php";
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 $id_especie = intval($_GET['id_especie']);
 
 // Preparar la consulta

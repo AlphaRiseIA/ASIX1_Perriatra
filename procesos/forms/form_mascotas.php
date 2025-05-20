@@ -2,7 +2,10 @@
 include "../conn/conectarse.php";
 include "../conn/conexion.php";
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 // Obtener propietarios
 $propietarios = mysqli_query($conn, "SELECT DNI_p, Nombre_p FROM propietario");
 

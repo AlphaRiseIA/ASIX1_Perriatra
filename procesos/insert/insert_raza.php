@@ -2,7 +2,10 @@
 include '../conn/conectarse.php';
 include '../conn/conexion.php';
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validación de campos

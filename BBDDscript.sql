@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `db_perriatra`.`especialidades` (
   PRIMARY KEY (`id_e`),
   UNIQUE INDEX `Nombre_e` (`Nombre_e` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 66
+AUTO_INCREMENT = 67
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `db_perriatra`.`especie` (
   PRIMARY KEY (`id_esp`),
   UNIQUE INDEX `Nombre_e` (`nombre_esp` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 10
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `db_perriatra`.`raza` (
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 21
+AUTO_INCREMENT = 28
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -88,17 +88,17 @@ CREATE TABLE IF NOT EXISTS `db_perriatra`.`veterinarios` (
   `Nombre_v` VARCHAR(50) NULL DEFAULT NULL,
   `Telf_v` VARCHAR(15) NULL DEFAULT NULL,
   `id_e` INT NULL DEFAULT NULL,
-  `Fecha_Contrato_v` DATE NULL DEFAULT NULL,
+  `Fecha_Contrato_v` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `Salario_v` DECIMAL(10,2) NULL DEFAULT NULL,
   PRIMARY KEY (`id_v`),
   INDEX `id_e` (`id_e` ASC) VISIBLE,
   CONSTRAINT `fk_Veterinario_Especialidad`
     FOREIGN KEY (`id_e`)
     REFERENCES `db_perriatra`.`especialidades` (`id_e`)
-    ON DELETE CASCADE
+    ON DELETE SET NULL
     ON UPDATE CASCADE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 9
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -154,6 +154,34 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+USE `db_perriatra`;
+
+DELIMITER $$
+USE `db_perriatra`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `db_perriatra`.`trg_especialidades_after_delete`
+AFTER DELETE ON `db_perriatra`.`especialidades`
+FOR EACH ROW
+BEGIN
+  UPDATE `db_perriatra`.`veterinarios`
+  SET id_e = NULL
+  WHERE id_e = OLD.id_e;
+END$$
+
+USE `db_perriatra`$$
+CREATE
+DEFINER=`root`@`localhost`
+TRIGGER `db_perriatra`.`trg_after_usuario_delete`
+AFTER DELETE ON `db_perriatra`.`usuario`
+FOR EACH ROW
+BEGIN
+  -- Borra el veterinario cuyo id_usuario coincida con el usuario eliminado
+  DELETE FROM veterinarios
+    WHERE id_v = OLD.id_u; END$$
+
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

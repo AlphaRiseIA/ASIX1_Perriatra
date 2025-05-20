@@ -2,7 +2,10 @@
 session_start();
 include "../conn/conectarse.php";
 include "../conn/conexion.php";
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../../sesion/Registro.php?error=metodo-no-permitido");
     exit();
@@ -187,6 +190,6 @@ if ($stmt_user) {
 
 // Registro exitoso
 $_SESSION['usuario'] = $username;
-header("Location: ../../index.php");
+header("Location: ../forms/form_veterinario.php?exito");
 exit();
 ?>

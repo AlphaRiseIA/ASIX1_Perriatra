@@ -1,3 +1,8 @@
+<?php session_start();
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -2,7 +2,10 @@
 include '../conn/conexion.php';
 include '../conn/conectarse.php';
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 // Consulta que une los veterinarios con sus usuarios
 $sql = "SELECT *
         FROM especie";
@@ -21,18 +24,20 @@ $result = mysqli_query($conn, $sql);
 <body>
     <h1>Listado de Especies</h1>
     <table class="tabla-vet">
+        <thead>
         <tr>
             <th>Especies</th>
             <th>Acciones</th>
         </tr>
+</thead>
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
             <tr>
                 <td><?php echo htmlspecialchars($row['nombre_esp']); ?></td>
                 <td>
-                    <a href='./procesos/deletes/eliminar_veterinario.php?id={$row['id_u']}'>Eliminar</a><br>
-                    <a href='./procesos/forms/modificar_artista.php?id={$row['id_u']}&usr={$_SESSION['usuario']}&vet={$row['genero']}&nom={$artista['nombre']}'>Editar</a><br>
-                    <a href='./procesos/forms/agregar_contacto.php?id={$artista['id']}'>Agregar Contacto</a><br>
-                    <a href='./procesos/vistas/ver_contactos.php?id={$artista['id']}'>Ver Contactos</a>
+                    <?php 
+                        echo "<a href='../deletes/eliminar_especies.php?id={$row['id_esp']}' class='delEsp' name='delEsp'>Eliminar</a>"; ?> <br>
+                    <?php    echo "<a href='../updates/update_especies.php?id={$row['id_esp']}' class='editESP' name='editEsp'>Editar</a>"; 
+                    ?>
                 </td>
             </tr>
         <?php endwhile; ?>
