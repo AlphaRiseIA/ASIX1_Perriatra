@@ -2,7 +2,10 @@
 include '../conn/conexion.php';
 include '../conn/conectarse.php';
 session_start();
-
+if (!isset($_SESSION['nombre_u'])) {
+    header("Location: ../sesion/Login.php");
+    exit();
+}
 if (!$conn) {
     die("Conexión fallida: " . mysqli_connect_error());
 }

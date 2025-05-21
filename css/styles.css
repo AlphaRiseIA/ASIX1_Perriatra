@@ -167,7 +167,7 @@ display: block;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 90%;
             height: 4px;
             background: linear-gradient(90deg, #04b4ae, #046582);
             border-radius: 2px;
@@ -585,3 +585,5 @@ button.filtrar:active {
     margin-top: 10px;
   }
 }
+
+

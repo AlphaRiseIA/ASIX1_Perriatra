@@ -1,7 +1,10 @@
 <?php
 include "../conn/conectarse.php";
 include "../conn/conexion.php";
-
+if (!isset($_SESSION['nombre_u']) || $_SESSION['nombre_u'] !== 'admin') {
+    header("Location: ../../index.php?no-tienes-acceso-aqui");
+    exit();
+}
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
     $query = "DELETE FROM veterinarios WHERE id_v = ?";
@@ -13,9 +16,9 @@ if (isset($_GET['id'])) {
         header("Location: ../vistas/veterinarios.php?veterinario=exito=eliminado");
         exit();
     } else {
-        echo "Error al eliminar: " . mysqli_error($conn);
+        echo "Error al eliminar veterianrio: " . mysqli_error($conn);
     }
 } else {
-    echo "ID no proporcionado.";
+    header("Location: ../vistas/veterinarios.php?veterinario=error=eliminado");
 }
 ?>

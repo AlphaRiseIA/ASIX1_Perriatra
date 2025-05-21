@@ -48,28 +48,30 @@ if (!isset($_SESSION['nombre_u']) || $_SESSION['nombre_u'] !== 'admin') {
         <label for="especialidad">Especialidad:</label>
         <select id="especialidad" name="especialidad">
             <option value="" disabled selected>-- Selecciona una especialidad --</option>
-            <?php
-            // Incluir archivos de conexión
+         <?php
+            // Incluir archivos de conexión (procedural)
             include "../conn/conectarse.php";
             include "../conn/conexion.php";
 
-            if ($conn->connect_error) {
-                die("Conexión fallida: " . $conn->connect_error);
+            // Verificar conexión
+            if (mysqli_connect_errno()) {
+                die("Conexión fallida: " . mysqli_connect_error());
             }
 
             // Consulta para obtener especialidades
             $sql = "SELECT id_e, Nombre_e FROM especialidades";
-            $result = $conn->query($sql);
+            $result = mysqli_query($conn, $sql);
 
-            if ($result->num_rows > 0) {
-                while ($fila = $result->fetch_assoc()) {
+            if ($result && mysqli_num_rows($result) > 0) {
+                while ($fila = mysqli_fetch_assoc($result)) {
                     echo "<option value='" . $fila['id_e'] . "'>" . htmlspecialchars($fila['Nombre_e']) . "</option>";
                 }
             } else {
                 echo "<option value=''>--No hay especialidades registradas--</option>";
             }
 
-            $conn->close(); // Cierra la conexión
+            // Cierra la conexión
+            mysqli_close($conn);
             ?>
         </select>
 

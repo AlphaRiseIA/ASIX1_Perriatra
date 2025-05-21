@@ -1,19 +1,27 @@
 <?php
-// Conexión a la base de datos
+// Conexión a la base de datos (procedural)
 include '../conn/conexion.php';
 include '../conn/conectarse.php';
+
 session_start();
+
 if (!isset($_SESSION['nombre_u'])) {
     header("Location: ../sesion/Login.php");
     exit();
 }
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+
+// Verificar conexión
+if (mysqli_connect_errno()) {
+    die("Conexión fallida: " . mysqli_connect_error());
 }
 
 // Consulta INNER JOIN para obtener id_esp y nombre
 $sql = "SELECT id_esp, nombre_esp FROM especie";
-$result = $conn->query($sql);
+$result = mysqli_query($conn, $sql);
+
+if (!$result) {
+    die("Error en la consulta: " . mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE html>

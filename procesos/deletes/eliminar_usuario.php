@@ -9,12 +9,12 @@ if (isset($_GET['id'])) {
     mysqli_stmt_bind_param($stmt, 'i', $chip);
     if (mysqli_stmt_execute($stmt)) {
         mysqli_stmt_close($stmt);
-        header("Location: ../vistas/mascotas.php?msg=deleted");
+        header("Location: ../vistas/usuarios.php?msg=deleted");
         exit;
     } else {
-        echo "Error al eliminar mascota: " . mysqli_error($conn);
+        echo "Error al eliminar usuario: " . mysqli_error($conn);
     }
 } else {
-    header("Location: ../vistas/mascotas.php");
+    header("Location: ../vistas/usuarios.php");
     exit;
 }

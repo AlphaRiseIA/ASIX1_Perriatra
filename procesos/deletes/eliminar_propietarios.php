@@ -12,9 +12,9 @@ if (isset($_GET['id'])) {
         header("Location: ../vistas/propietarios.php?msg=deleted");
         exit;
     } else {
-        echo "Error al eliminar mascota: " . mysqli_error($conn);
+        echo "Error al eliminar propietario: " . mysqli_error($conn);
     }
 } else {
-    header("Location: ../vistas/mascotas.php");
+    header("Location: ../vistas/propietarios.php");
     exit;
 }

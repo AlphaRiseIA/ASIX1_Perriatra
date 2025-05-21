@@ -9,15 +9,16 @@
 </head>
 <body>
 <div class="container">
-    <form action="../querys/loginproc.php" method="POST" id="form"> <!--Envio de POST de datos sensibles -->
+    <form action="../querys/loginproc.php" method="POST" id="form">
     <h2>Login de Veterinaria</h2>
         <label for=usuario>Introduce tu nombre:</label>
-        <input type="text" id="usuario" name="usuario" onblur="validaUsuario()"> <!--Validacion del nombre del usuario ya registrado-->
+        <input type="text" id="usuario" name="usuario" onblur="validaUsuario()">
         <span id="errorUsuario" class="error"></span>
         <label for="password">Introduzca su contraseña:</label>
-        <input type="password" id="password" name="password" onblur="validaPassword()"> <!--Validacion de contraeña del usuario registrado-->
+        <input type="password" id="password" name="password" onblur="validaPassword()"> 
         <span id="errorPassword" class="error"></span>
         <input type="submit" value="Iniciar sesión"> 
+        <a href="../forms/form_ayuda.php">Solicitar Ayuda</a>
 </form>
     
 </html> 
