@@ -87,7 +87,7 @@ $result = mysqli_query($conn, "
                 <td><?= htmlspecialchars($row['fecha_envio'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><span class="<?= $claseEstado ?>"><?= htmlspecialchars($estado) ?></span></td>
                 <td>
-                    <a href="../updates/update_incidencias.php?id=<?= urlencode($row['id_ayuda']) ?>" class="viewT" name="viewT">Ver</a>
+                    <a href="../updates/update_incidencias.php?id=<?= urlencode($row['id_ayuda']) ?>" class="viewT" name="viewT">Gestionar</a>
                 </td>
             </tr>
         <?php endwhile; ?>
