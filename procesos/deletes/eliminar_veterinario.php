@@ -1,7 +1,7 @@
 <?php
 include "../conn/conectarse.php";
 include "../conn/conexion.php";
-if (!isset($_SESSION['nombre_u']) || $_SESSION['nombre_u'] !== 'admin') {
+if (!$_SESSION['nombre_u'] === 'admin') {
     header("Location: ../../index.php?no-tienes-acceso-aqui");
     exit();
 }

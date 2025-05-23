@@ -197,10 +197,9 @@ BEGIN
   -- Borra el veterinario cuyo id_usuario coincida con el usuario eliminado
   DELETE FROM veterinarios
     WHERE id_v = OLD.id_u; END$$
-
-
 DELIMITER ;
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
